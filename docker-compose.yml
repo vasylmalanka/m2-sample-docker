@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx
     ports:
-      - "80:8080"
+      - "80:80"
     links:
       - php-fpm
     volumes:
@@ -15,18 +15,17 @@ services:
     container_name: nginx
   php-fpm:
     build: ./php-fpm
-    ports:
-      - "9000:9000"
     links:
       - mysql
       - redis
     volumes:
-      - type: volume
-        source: ./www
-        target: /var/www/html/m2
-        consistent: delegated
+      - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
     container_name: php-fpm
+    environment:
+      PHP_IDE_CONFIG: "serverName="
+      XDEBUG_ENABLE: "false"
+      XDEBUG_REMOTE_HOST:
   mysql:
     build: ./mysql
     env_file:

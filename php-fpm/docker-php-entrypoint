@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+echo "$XDEBUG_ENABLE"
+if [ "$XDEBUG_ENABLE" = "true" ]; then
+    sed -i -E "s/(xdebug\.remote\_enable\=).+/\11/" /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    awk '/host/{getline;next} 1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    printf "\nxdebug.remote_host=$XDEBUG_REMOTE_HOST" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+fi
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- php-fpm "$@"
+fi
+
+exec "$@"

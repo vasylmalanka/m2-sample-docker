@@ -15,6 +15,19 @@ Steps to install Magento 2 with sample data:
 5. Run `docker-compose up`.
 6. Open `m2-sample.loc` in browser and have fun ;)
 
+### Debugging
+
+1. Stop containers `docker-compose down`.
+2. Write your current IP address into `XDEBUG_REMOTE_HOST` variable in `docker-compose.yml`.
+3. Set `XDEBUG_ENABLE` to `"true"` in `docker-compose.yml`.
+4. In PhpStorm go to File -> Settings... -> Languages & Frameworks -> PHP -> Servers.
+5. Set `Host`:`m2-sample.loc` and some unique `Title`.
+6. Check `use path mappings` and add `/var/www/html/m2` opposite to `www` directory.
+7. In `docker-compose.yml` set `PHP_IDE_CONFIG: "serverName=<Title>"` (`Title` from step 5).
+8. Re-build containers `docker-compose build`.
+9. Run containers with new configuration `docker-compose up`.
+10. Enable `Start Listening for PHP Debug Connections`.
+
 ## Built With
 
 * [Docker Community Edition](https://docs.docker.com/install/)

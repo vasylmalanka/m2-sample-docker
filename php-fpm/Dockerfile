@@ -43,6 +43,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY php.ini /usr/local/etc/php/conf.d/additional.ini
 COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
+COPY docker-php-entrypoint /usr/local/bin/
+
 COPY ./m2-install.sh /var/www/html/
 
 WORKDIR /var/www/html/m2
