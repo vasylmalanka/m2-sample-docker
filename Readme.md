@@ -11,8 +11,9 @@ Steps to install Magento 2 with sample data:
 1. Copy *.env.sample* into *.env*: `cp .env.sample .env` .
 2. Edit *.env* with setting of public and private keys from your account on Magento Marketplace.
 3. Run `./setup.sh`
-4. Add a line to your hosts file `127.0.0.1 <HOSTNAME>`
-5. Run `docker-compose up` and have fun ;)
+4. Add a line to your hosts file `127.0.0.1 m2-sample.loc`
+5. Run `docker-compose up`.
+6. Open `m2-sample.loc` in browser and have fun ;)
 
 ## Built With
 
