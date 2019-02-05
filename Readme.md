@@ -23,7 +23,7 @@ Steps to install Magento 2 with sample data:
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/vasylmalanka/m2-sampledata-docker-php-apache-mysql/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/vasylmalanka/m2-sample-docker/tags). 
 
 ## Authors
 
