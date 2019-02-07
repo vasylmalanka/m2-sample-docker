@@ -7,8 +7,10 @@ set -o allexport
 source .env
 set +o allexport
 
+cd m2
 composer global config http-basic.repo.magento.com "$PUBLICKEY" "$PRIVATEKEY"
-echo "Y" | composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition m2/magento
+echo "Y" | composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
+cd ../
 cp -R m2/magento/* m2/
 rm -r m2/magento
 cd m2
@@ -64,5 +66,3 @@ cat << EOF | tee -a app/etc/env.php
 EOF
 bin/magento app:config:import
 bin/magento cache:flush
-
-chmod -R g+w,o+w .
