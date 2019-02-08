@@ -47,6 +47,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Adjust PHP parameters
 COPY php.ini /usr/local/etc/php/conf.d/additional.ini
 COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN chmod 777 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d
 
 COPY docker-php-entrypoint /usr/local/bin/
 
