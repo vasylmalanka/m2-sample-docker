@@ -65,4 +65,11 @@ cat << EOF | tee -a app/etc/env.php
 ];
 EOF
 bin/magento app:config:import
+
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/js/merge_files"' "$MYSQL_DATABASE"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/js/enable_js_bundling"' "$MYSQL_DATABASE"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/js/minify_files"' "$MYSQL_DATABASE"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/css/merge_css_files"' "$MYSQL_DATABASE"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/css/minify_files"' "$MYSQL_DATABASE"
+
 bin/magento cache:flush
