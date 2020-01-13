@@ -20,7 +20,7 @@ RUN buildDeps=" \
         procps \
         unzip \
 # Install MySQL client for integration tests
-        mysql-client \
+        default-mysql-client \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
 # Install and configure PHP libraries required for Magento 2
