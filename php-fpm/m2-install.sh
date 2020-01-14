@@ -73,3 +73,6 @@ mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_confi
 mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/css/minify_files"' "$MYSQL_DATABASE"
 
 bin/magento cache:flush
+
+rm -rf var/cache var/composer_home var/generation var/page_cache var/view_preprocessed pub/static
+bin/magento setup:static-content:deploy -f
