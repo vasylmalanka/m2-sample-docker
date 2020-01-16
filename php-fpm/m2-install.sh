@@ -67,7 +67,7 @@ EOF
 bin/magento app:config:import
 
 bin/magento config:set dev/css/merge_css_files 1
-bin/magento config:set dev/css/minify_files
+bin/magento config:set dev/css/minify_files 1
 bin/magento config:set dev/js/merge_files 1
 bin/magento config:set dev/js/minify_files 1
 bin/magento config:set catalog/frontend/flat_catalog_category 1
