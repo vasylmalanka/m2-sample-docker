@@ -66,11 +66,10 @@ cat << EOF | tee -a app/etc/env.php
 EOF
 bin/magento app:config:import
 
-mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/js/merge_files"' "$MYSQL_DATABASE"
-mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/js/enable_js_bundling"' "$MYSQL_DATABASE"
-mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/js/minify_files"' "$MYSQL_DATABASE"
-mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/css/merge_css_files"' "$MYSQL_DATABASE"
-mysql -h "$MYSQL_DBHOST" -u root -p"$MYSQL_ROOT_PASSWORD" -e 'UPDATE `core_config_data` SET `value` = 1 WHERE `path`="dev/css/minify_files"' "$MYSQL_DATABASE"
+bin/magento config:set dev/css/merge_css_files 1
+bin/magento config:set dev/css/minify_files
+bin/magento config:set dev/js/merge_files 1
+bin/magento config:set dev/js/minify_files 1
 
 bin/magento cache:flush
 
