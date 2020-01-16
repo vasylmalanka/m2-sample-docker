@@ -18,11 +18,15 @@ services:
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
+      #- ~/.cache/composer:/home/docker/.cache/composer
+      #- ~/.config/composer:/home/docker/.config/composer
     container_name: php-fpm
     environment:
       PHP_IDE_CONFIG: "serverName="
       XDEBUG_ENABLE: "false"
       XDEBUG_REMOTE_HOST:
+      #COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
+      #COMPOSER_HOME: '/home/docker/.config/composer'
   mysql:
     image: mysql:5.7
     env_file:
