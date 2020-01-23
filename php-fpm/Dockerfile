@@ -31,6 +31,7 @@ RUN buildDeps=" \
     && docker-php-ext-install ldap \
     && docker-php-ext-install exif \
     && docker-php-ext-install xsl \
+    && docker-php-ext-install opcache \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
