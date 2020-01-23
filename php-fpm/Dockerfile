@@ -38,10 +38,6 @@ RUN buildDeps=" \
 # Install Xdebug
 RUN yes | pecl install xdebug
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && chown web:www-data /usr/local/bin/composer
-
 # Adjust PHP parameters
 COPY php.ini /usr/local/etc/php/conf.d/additional.ini
 COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
@@ -51,6 +47,10 @@ COPY docker-php-entrypoint /usr/local/bin/
 
 ARG UID
 RUN useradd -m -g www-data -G sudo,root,www-data -u $UID web
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && chown web:www-data /usr/local/bin/composer
 
 COPY ./m2-install.sh /var/www/html/
 RUN chown web:www-data /var/www/html/m2-install.sh
