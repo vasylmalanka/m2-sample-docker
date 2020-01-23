@@ -45,6 +45,7 @@ RUN yes | pecl install xdebug
 COPY php.ini /usr/local/etc/php/conf.d/additional.ini
 COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN chmod 777 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d
+COPY www.conf /usr/local/etc/php-fpm.d/www.conf
 
 COPY docker-php-entrypoint /usr/local/bin/
 
