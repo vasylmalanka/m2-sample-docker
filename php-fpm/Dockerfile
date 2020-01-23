@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.3-fpm
 
 # Install packages reqiuired for installation of PHP libraries
 RUN buildDeps=" \
@@ -19,6 +19,7 @@ RUN buildDeps=" \
         libxslt-dev \
         procps \
         unzip \
+        libzip-dev \
 # Install MySQL client for integration tests
         default-mysql-client \
     " \
@@ -31,6 +32,8 @@ RUN buildDeps=" \
     && docker-php-ext-install ldap \
     && docker-php-ext-install exif \
     && docker-php-ext-install xsl \
+    && docker-php-ext-configure zip --with-libzip \
+    && docker-php-ext-install zip \
     && docker-php-ext-install opcache \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
