@@ -14,6 +14,6 @@ sudo chown $(id -u):33 www
 docker-compose build --build-arg UID=$(id -u) php-fpm
 docker-compose build redis
 docker-compose up -d
-docker exec -it php-fpm ../m2-install.sh
+docker exec -it m2-sample-php-fpm ../m2-install.sh
 
 docker-compose down

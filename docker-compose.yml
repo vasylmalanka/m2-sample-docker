@@ -9,7 +9,7 @@ services:
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    container_name: nginx
+    container_name: m2-sample-nginx
   php-fpm:
     build: ./php-fpm
     links:
@@ -18,15 +18,15 @@ services:
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
-      #- ~/.cache/composer:/home/docker/.cache/composer
-      #- ~/.config/composer:/home/docker/.config/composer
-    container_name: php-fpm
+#      - ~/.cache/composer:/home/docker/.cache/composer
+#      - ~/.config/composer:/home/docker/.config/composer
+    container_name: m2-sample-php-fpm
     environment:
       PHP_IDE_CONFIG: "serverName="
       XDEBUG_ENABLE: "false"
       XDEBUG_REMOTE_HOST:
-      #COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
-      #COMPOSER_HOME: '/home/docker/.config/composer'
+#      COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
+#      COMPOSER_HOME: '/home/docker/.config/composer'
   mysql:
     image: percona:5.7
     env_file:
@@ -35,14 +35,14 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql/my.cnf:/etc/my.cnf.d/my.cnf
-      - mysql:/var/lib/mysql
-    container_name: mysql
+      - m2-sample-mysql:/var/lib/mysql
+    container_name: m2-sample-mysql
   redis:
     build: ./redis
     expose:
       - "6379"
-    container_name: redis
-#  mysql-integration:
+    container_name: m2-sample-redis
+#  mysql-integration-tests:
 #    image: percona:5.7
 #    expose:
 #      - "3306"
@@ -52,6 +52,6 @@ services:
 #    tmpfs:
 #      - /var/lib/mysql/:rw,noexec,nosuid,size=600m
 #      - /tmp/:rw,noexec,nosuid,size=50m
-#    container_name: mysql-integration
+#    container_name: m2-sample-mysql-integration-tests
 volumes:
-  mysql:
+  m2-sample-mysql:

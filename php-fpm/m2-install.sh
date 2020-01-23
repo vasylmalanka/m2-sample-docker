@@ -40,39 +40,9 @@ bin/magento config:set catalog/frontend/flat_catalog_category 1
 bin/magento config:set catalog/frontend/flat_catalog_product 1
 bin/magento indexer:reindex
 
-bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0
-bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
-head -n -2 app/etc/env.php > app/etc/env.php.tmp
-mv app/etc/env.php.tmp app/etc/env.php
-sed -i 's/session/session_old/g' app/etc/env.php
-cat << EOF | tee -a app/etc/env.php
-    ],
-    'session' => [
-        'save' => 'redis',
-        'redis' => [
-            'host' => 'redis',
-            'port' => '6379',
-            'password' => '',
-            'timeout' => '2.5',
-            'persistent_identifier' => '',
-            'database' => '2',
-            'compression_threshold' => '2048',
-            'compression_library' => 'gzip',
-            'log_level' => '3',
-            'max_concurrency' => '6',
-            'break_after_frontend' => '5',
-            'break_after_adminhtml' => '30',
-            'first_lifetime' => '600',
-            'bot_first_lifetime' => '60',
-            'bot_lifetime' => '7200',
-            'disable_locking' => '0',
-            'min_lifetime' => '60',
-            'max_lifetime' => '2592000',
-        ],
-    ],
-];
-EOF
-bin/magento app:config:import
+bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=m2-sample-redis --cache-backend-redis-db=0
+bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=m2-sample-redis --page-cache-redis-db=1
+Y| bin/magento setup:config:set --session-save=redis --session-save-redis-host=m2-sample-redis --session-save-redis-db=2 --session-save-redis-log-level=3
 
 bin/magento config:set dev/css/merge_css_files 1
 bin/magento config:set dev/css/minify_files 1
@@ -80,6 +50,6 @@ bin/magento config:set dev/js/merge_files 1
 bin/magento config:set dev/js/minify_files 1
 
 bin/magento cache:flush
-
 rm -rf var/cache var/composer_home var/generation var/page_cache var/view_preprocessed pub/static
+
 bin/magento setup:static-content:deploy -f
