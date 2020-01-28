@@ -34,7 +34,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql/my.cnf:/etc/my.cnf.d/my.cnf
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - m2-sample-mysql:/var/lib/mysql
     container_name: m2-sample-mysql
   redis:
