@@ -38,8 +38,8 @@ bin/magento setup:upgrade
 
 bin/magento indexer:reindex
 
-bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=m2-sample-redis --cache-backend-redis-db=0
-bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=m2-sample-redis --page-cache-redis-db=1
+echo "Y" | bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=m2-sample-redis --cache-backend-redis-db=0
+echo "Y" | bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=m2-sample-redis --page-cache-redis-db=1
 echo "Y" | bin/magento setup:config:set --session-save=redis --session-save-redis-host=m2-sample-redis --session-save-redis-db=2 --session-save-redis-log-level=3
 
 bin/magento config:set dev/css/merge_css_files 1
