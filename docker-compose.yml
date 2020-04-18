@@ -22,9 +22,9 @@ services:
 #      - ~/.config/composer:/home/docker/.config/composer
     container_name: m2-sample-php-fpm
     environment:
-      PHP_IDE_CONFIG: "serverName="
       XDEBUG_ENABLE: "false"
-      XDEBUG_REMOTE_HOST:
+#      PHP_IDE_CONFIG: "serverName="
+#      XDEBUG_REMOTE_HOST:
 #      COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
 #      COMPOSER_HOME: '/home/docker/.config/composer'
   mysql:
