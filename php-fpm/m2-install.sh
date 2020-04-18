@@ -36,8 +36,6 @@ bin/magento sampledata:deploy
 
 bin/magento setup:upgrade
 
-bin/magento config:set catalog/frontend/flat_catalog_category 1
-bin/magento config:set catalog/frontend/flat_catalog_product 1
 bin/magento indexer:reindex
 
 bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=m2-sample-redis --cache-backend-redis-db=0
