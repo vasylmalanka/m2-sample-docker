@@ -53,5 +53,17 @@ services:
 #      - /var/lib/mysql/:rw,noexec,nosuid,size=600m
 #      - /tmp/:rw,noexec,nosuid,size=50m
 #    container_name: m2-sample-mysql-integration-tests
+#  rabbitmq:
+#    container_name: m2-sample-rabbitmq
+#    image: rabbitmq:3.7-management
+#    environment:
+#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+#      RABBITMQ_DEFAULT_USER: "rabbitmq"
+#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#      RABBITMQ_DEFAULT_VHOST: "/"
+#    ports:
+#      - "15672:15672"
+#      - "5672:5672"
+#    restart: on-failure
 volumes:
   m2-sample-mysql:
