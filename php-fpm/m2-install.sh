@@ -22,17 +22,19 @@ bin/magento setup:install --backend-frontname="admin" --db-host="$MYSQL_DBHOST" 
 
 bin/magento deploy:mode:set developer
 
-cat << EOF | tee var/composer_home/auth.json
-{
-    "http-basic": {
-        "repo.magento.com": {
-            "username": "$PUBLICKEY",
-            "password": "$PRIVATEKEY"
+if [ "$DEPLOY_SAMPLE_DATA" = "true" ]; then
+    cat << EOF | tee var/composer_home/auth.json
+    {
+        "http-basic": {
+            "repo.magento.com": {
+                "username": "$PUBLICKEY",
+                "password": "$PRIVATEKEY"
+            }
         }
     }
-}
 EOF
-bin/magento sampledata:deploy
+    bin/magento sampledata:deploy
+fi
 
 bin/magento setup:upgrade
 
