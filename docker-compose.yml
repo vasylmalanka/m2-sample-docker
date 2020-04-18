@@ -43,7 +43,7 @@ services:
       - "6379"
     container_name: m2-sample-redis
 #  mysql-integration-tests:
-#    image: percona:5.7
+#    image: mysql:5.7
 #    expose:
 #      - "3306"
 #    environment:
