@@ -46,8 +46,3 @@ bin/magento config:set dev/css/merge_css_files 1
 bin/magento config:set dev/css/minify_files 1
 bin/magento config:set dev/js/merge_files 1
 bin/magento config:set dev/js/minify_files 1
-
-bin/magento cache:flush
-rm -rf var/cache var/composer_home var/generation var/page_cache var/view_preprocessed pub/static
-
-bin/magento setup:static-content:deploy -f
