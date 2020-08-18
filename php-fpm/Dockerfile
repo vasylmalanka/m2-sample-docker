@@ -20,21 +20,22 @@ RUN buildDeps=" \
         procps \
         unzip \
         libzip-dev \
-# Install MySQL client for integration tests
+        librabbitmq-dev \
+        libssh-dev \
         default-mysql-client \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
 # Install and configure PHP libraries required for Magento 2
-    && docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mysqli pdo_mysql soap zip \
+    && pecl install amqp \
+    && docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mysqli pdo_mysql soap zip exif xsl opcache \
+    && docker-php-ext-install opcache sockets \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
     && docker-php-ext-install ldap \
-    && docker-php-ext-install exif \
-    && docker-php-ext-install xsl \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install zip \
-    && docker-php-ext-install opcache \
+    && docker-php-ext-enable amqp \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
