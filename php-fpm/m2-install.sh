@@ -18,7 +18,8 @@ cd m2
 bin/magento setup:install --backend-frontname="admin" --db-host="$MYSQL_DBHOST" --db-name="$MYSQL_DATABASE" \
     --db-password="$MYSQL_ROOT_PASSWORD" --db-user="root" --use-rewrites="1" --admin-user="$MAGENTO_ADMIN_USERNAME" \
     --admin-password="$MAGENTO_ADMIN_PASSWORD" --base-url="http://m2-sample.loc" --admin-email="admin@example.com" \
-    --admin-firstname="Admin" --admin-lastname="Admin" --magento-init-params="MAGE_MODE=developer"
+    --admin-firstname="Admin" --admin-lastname="Admin" --magento-init-params="MAGE_MODE=developer" \
+    --elasticsearch-host=elasticsearch
 
 bin/magento deploy:mode:set developer
 

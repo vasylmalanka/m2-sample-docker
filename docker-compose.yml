@@ -65,5 +65,35 @@ services:
 #      - "15672:15672"
 #      - "5672:5672"
 #    restart: on-failure
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.7.0
+    environment:
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - xpack.ml.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - discovery.zen.minimum_master_nodes=1
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+  elastichq:
+    image: elastichq/elasticsearch-hq:latest
+    environment:
+      - HQ_DEFAULT_URL=http://elasticsearch:9200
+    ports:
+      - 5000
+    depends_on:
+      - elasticsearch
 volumes:
   m2-sample-mysql:
