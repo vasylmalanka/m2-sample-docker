@@ -49,3 +49,6 @@ bin/magento config:set dev/css/merge_css_files 1
 bin/magento config:set dev/css/minify_files 1
 bin/magento config:set dev/js/merge_files 1
 bin/magento config:set dev/js/minify_files 1
+
+bin/magento module:disable Magento_TwoFactorAuth
+bin/magento cache:flush
