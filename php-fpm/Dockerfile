@@ -55,7 +55,7 @@ ARG UID
 RUN useradd -m -g www-data -G sudo,root,www-data -u $UID web
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1 \
     && chown web:www-data /usr/local/bin/composer
 
 COPY ./m2-install.sh /var/www/html/
