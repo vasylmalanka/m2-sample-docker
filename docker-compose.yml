@@ -5,79 +5,47 @@ services:
     ports:
       - "80:80"
     links:
-      - php-fpm
+      - fpm
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    container_name: m2-sample-nginx
-  php-fpm:
-    build: ./php-fpm
+  fpm:
+    build: ./fpm
     links:
       - mysql
       - redis
+      - elasticsearch
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
 #      - ~/.cache/composer:/home/docker/.cache/composer
-#      - ~/.config/composer:/home/docker/.config/composer
-    container_name: m2-sample-php-fpm
     environment:
       XDEBUG_ENABLE: "false"
 #      PHP_IDE_CONFIG: "serverName="
 #      XDEBUG_REMOTE_HOST:
 #      COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
-#      COMPOSER_HOME: '/home/docker/.config/composer'
   mysql:
     image: percona:5.7
     env_file:
       - .env
     ports:
       - "3306:3306"
-    volumes:
-      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-      - m2-sample-mysql:/var/lib/mysql
-    container_name: m2-sample-mysql
+    command: ["mysqld", "--innodb-buffer-pool-size=2048M"]
   redis:
-    build: ./redis
+    image: redis
     expose:
       - "6379"
-    container_name: m2-sample-redis
-#  mysql-integration-tests:
-#    image: mysql:5.7
-#    expose:
-#      - "3306"
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=root
-#      - MYSQL_DATABASE=m2
-#    tmpfs:
-#      - /var/lib/mysql/:rw,noexec,nosuid,size=600m
-#      - /tmp/:rw,noexec,nosuid,size=50m
-#    container_name: m2-sample-mysql-integration-tests
-#  rabbitmq:
-#    container_name: m2-sample-rabbitmq
-#    image: rabbitmq:3.7-management
-#    environment:
-#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-#      RABBITMQ_DEFAULT_USER: "rabbitmq"
-#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-#      RABBITMQ_DEFAULT_VHOST: "/"
-#    ports:
-#      - "15672:15672"
-#      - "5672:5672"
-#    restart: on-failure
+    command: redis-server --bind 0.0.0.0 --maxmemory 512mb --maxmemory-policy volatile-lru --appendonly yes
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.7.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    ports:
+      - "9200:9200"
     environment:
-      - xpack.security.enabled=false
-      - xpack.monitoring.enabled=false
-      - xpack.ml.enabled=false
-      - xpack.graph.enabled=false
-      - xpack.watcher.enabled=false
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - discovery.zen.minimum_master_nodes=1
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     ulimits:
       memlock:
         soft: -1
@@ -85,15 +53,20 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-    ports:
-      - 9200:9200
-  elastichq:
-    image: elastichq/elasticsearch-hq:latest
-    environment:
-      - HQ_DEFAULT_URL=http://elasticsearch:9200
-    ports:
-      - 5000
-    depends_on:
-      - elasticsearch
-volumes:
-  m2-sample-mysql:
+#  mysql-integration-tests:
+#    image: mysql:5.7
+#    expose:
+#      - "3306"
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=123123q
+#      - MYSQL_DATABASE=magento_integration_tests
+#    tmpfs:
+#      - /var/lib/mysql/:rw,noexec,nosuid,size=600m
+#      - /tmp/:rw,noexec,nosuid,size=50m
+#  rabbitmq:
+#    image: rabbitmq:3.7-management
+#    environment:
+#      RABBITMQ_DEFAULT_USER: "guest"
+#      RABBITMQ_DEFAULT_PASS: "guest"
+#    expose:
+#      - "5672"

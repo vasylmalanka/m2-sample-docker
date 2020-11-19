@@ -1,4 +1,4 @@
-Docker configuration for Magento 2 Open Source with Sample Data running on PHP-FPM 7.2, MySQL 5.7, Nginx, Composer.
+Docker configuration for Magento 2 Open Source with Sample Data running on PHP-FPM 7.3, MySQL 5.7, Elasticsearch 7, Nginx, Composer.
 
 ### Prerequisites
 
@@ -24,9 +24,17 @@ Steps to install Magento 2 with sample data:
 5. Set `Host`:`m2-sample.loc` and some unique `Title`.
 6. Check `use path mappings` and add `/var/www/html/m2` opposite to `www` directory.
 7. In `docker-compose.yml` set `PHP_IDE_CONFIG: "serverName=<Title>"` (`Title` from step 5).
-8. Re-build containers `docker-compose build --build-arg UID=$(id -u) php-fpm`.
+8. Re-build containers `docker-compose build --build-arg UID=$(id -u) fpm`.
 9. Run containers with new configuration `docker-compose up`.
 10. Enable `Start Listening for PHP Debug Connections`.
+
+### To do
+1. Make host configurable.
+2. Update README.md:
+  - on which platform tested
+  - move integration test configuration to override.yml
+  - local composer cache usage
+  - rework file permissions
 
 ## Built With
 
