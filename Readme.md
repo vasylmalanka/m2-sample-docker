@@ -29,12 +29,14 @@ Steps to install Magento 2 with sample data:
 10. Enable `Start Listening for PHP Debug Connections`.
 
 ### To do
-1. Make host configurable.
-2. Update README.md:
+1. Make host configurable (https://stackoverflow.com/questions/56649582/substitute-environment-variables-in-nginx-config-from-docker-compose/62844707#62844707)
+2. Change links -> depends_on[]
+3. Update README.md:
+  - how to use Composer cache
   - on which platform tested
-3. move integration test configuration to override.yml
-4. local composer cache usage
-5. rework file permissions
+4. move integration test configuration to override.yml
+5. Build PHP image and push it to Docker hub
+6. rework file permissions
 
 ## Built With
 
