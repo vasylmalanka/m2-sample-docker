@@ -24,6 +24,7 @@ services:
 #      PHP_IDE_CONFIG: "serverName="
 #      XDEBUG_REMOTE_HOST:
 #      COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
+      COMPOSER_HOME: '/var/www/html/var/composer_home'
   mysql:
     image: percona:5.7
     env_file:
