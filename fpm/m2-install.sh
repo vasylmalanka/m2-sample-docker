@@ -42,18 +42,23 @@ bin/magento setup:upgrade
 
 bin/magento indexer:reindex
 
-echo "Y" | bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0
+# Enable Redis cache and session storage
+echo "Y" | bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis \
+  --cache-backend-redis-db=0
 echo "Y" | bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
-echo "Y" | bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-db=2 --session-save-redis-log-level=3
+echo "Y" | bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-db=2 \
+  --session-save-redis-log-level=3
 
 bin/magento config:set dev/css/merge_css_files 1
 bin/magento config:set dev/css/minify_files 1
 bin/magento config:set dev/js/merge_files 1
 bin/magento config:set dev/js/minify_files 1
 
+# Disable 2FA authorization
 bin/magento module:disable Magento_TwoFactorAuth
 bin/magento cache:flush
 
+# Adjust integration test configuration
 cat > dev/tests/integration/etc/install-config-mysql.php <<EOL
 <?php
 
