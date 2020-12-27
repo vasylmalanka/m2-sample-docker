@@ -23,6 +23,7 @@ RUN buildDeps=" \
         librabbitmq-dev \
         libssh-dev \
         default-mysql-client \
+        openssl \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
 # Install and configure PHP libraries required for Magento 2

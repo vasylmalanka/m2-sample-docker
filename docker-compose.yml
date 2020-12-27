@@ -4,6 +4,7 @@ services:
     image: nginx
     ports:
       - "80:80"
+      - "443:443"
     depends_on: [fpm]
     volumes:
       - ./www:/var/www/html/m2:delegated

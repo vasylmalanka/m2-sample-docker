@@ -17,9 +17,10 @@ cd m2
 
 bin/magento setup:install --backend-frontname="admin" --db-host="mysql" --db-name="$MYSQL_DATABASE" \
     --db-password="$MYSQL_ROOT_PASSWORD" --db-user="root" --use-rewrites="1" --admin-user="$MAGENTO_ADMIN_USERNAME" \
-    --admin-password="$MAGENTO_ADMIN_PASSWORD" --base-url="http://${WEBSITE_HOSTNAME}" \
-    --admin-email="admin@example.com" --admin-firstname="Admin" --admin-lastname="Admin" \
-    --magento-init-params="MAGE_MODE=developer" --elasticsearch-host=elasticsearch
+    --admin-password="$MAGENTO_ADMIN_PASSWORD" --use-secure=1 --base-url="https://${WEBSITE_HOSTNAME}" \
+    --base-url-secure="https://${WEBSITE_HOSTNAME}" --use-secure-admin=1 --admin-email="admin@example.com" \
+    --admin-firstname="Admin" --admin-lastname="Admin" --magento-init-params="MAGE_MODE=developer" \
+    --elasticsearch-host=elasticsearch
 
 bin/magento deploy:mode:set developer
 
@@ -76,3 +77,22 @@ return [
 ];
 EOL
 cp dev/tests/integration/phpunit.xml.dist dev/tests/integration/phpunit.xml
+
+# Generate certificates to enable SSL
+mkdir crt
+openssl req -x509 -nodes -new -sha256 -days 1024 -newkey rsa:2048 -keyout crt/RootCA.key -out crt/RootCA.pem -subj \
+  "/C=US/CN=Example-Root-CA"
+openssl x509 -outform pem -in crt/RootCA.pem -out crt/RootCA.crt
+cat <<EOT > crt/domain.ext
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = localhost
+DNS.2 = ${WEBSITE_HOSTNAME}
+EOT
+openssl req -new -nodes -newkey rsa:2048 -keyout crt/localhost.key -out crt/localhost.csr -subj \
+  "/C=US/ST=YourState/L=YourCity/O=Example-Certificates/CN=${WEBSITE_HOSTNAME}"
+openssl x509 -req -sha256 -days 1024 -in crt/localhost.csr -CA crt/RootCA.pem -CAkey crt/RootCA.key -CAcreateserial \
+  -extfile crt/domain.ext -out crt/localhost.crt

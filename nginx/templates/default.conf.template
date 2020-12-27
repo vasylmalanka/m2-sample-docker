@@ -3,8 +3,10 @@ upstream fastcgi_backend {
 }
 
 server {
-    listen 80;
+    listen 443 ssl;
     server_name ${WEBSITE_HOSTNAME};
     set $MAGE_ROOT /var/www/html/m2;
     include /var/www/html/m2/nginx.conf.sample;
+    ssl_certificate /var/www/html/m2/crt/localhost.crt;
+    ssl_certificate_key /var/www/html/m2/crt/localhost.key;
 }
