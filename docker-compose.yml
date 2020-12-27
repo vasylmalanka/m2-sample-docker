@@ -20,7 +20,7 @@ services:
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
-      - ~/.cache/composer:/home/docker/.cache/composer
+#      - ~/.cache/composer:/home/docker/.cache/composer
     env_file:
       - .env
   mysql:
