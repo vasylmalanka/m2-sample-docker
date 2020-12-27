@@ -1,0 +1,10 @@
+upstream fastcgi_backend {
+    server fpm:9000;
+}
+
+server {
+    listen 80;
+    server_name ${WEBSITE_HOSTNAME};
+    set $MAGE_ROOT /var/www/html/m2;
+    include /var/www/html/m2/nginx.conf.sample;
+}

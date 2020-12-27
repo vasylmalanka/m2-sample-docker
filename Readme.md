@@ -11,9 +11,8 @@ Steps to install Magento 2 with sample data:
 1. Copy *.env.sample* into *.env*: `cp .env.sample .env` .
 2. Edit *.env* with setting of public and private keys from your account on Magento Marketplace.
 3. Run `./setup.sh`
-4. Add a line to your hosts file `127.0.0.1 m2-sample.loc`
-5. Run `docker-compose up`.
-6. Open `m2-sample.loc` in browser and have fun ;)
+4. Add a line to your hosts file `127.0.0.1 <your.host>`
+5. Open `<your.host>` in browser and have fun ;)
 
 ### Debugging
 
@@ -21,7 +20,7 @@ Steps to install Magento 2 with sample data:
 2. Write your current IP address into `XDEBUG_REMOTE_HOST` variable in `docker-compose.yml`.
 3. Set `XDEBUG_ENABLE` to `"true"` in `docker-compose.yml`.
 4. In PhpStorm go to File -> Settings... -> Languages & Frameworks -> PHP -> Servers.
-5. Set `Host`:`m2-sample.loc` and some unique `Title`.
+5. Set `Host`:`<your.host>` and some unique `Title`.
 6. Check `use path mappings` and add `/var/www/html/m2` opposite to `www` directory.
 7. In `docker-compose.yml` set `PHP_IDE_CONFIG: "serverName=<Title>"` (`Title` from step 5).
 8. Re-build FPM container `docker-compose build --build-arg UID=$(id -u) fpm`.

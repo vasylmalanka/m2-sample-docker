@@ -8,7 +8,9 @@ services:
       - fpm
     volumes:
       - ./www:/var/www/html/m2:delegated
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/templates:/etc/nginx/templates
+    env_file:
+      - .env
   fpm:
     build: ./fpm
     links:
@@ -18,13 +20,9 @@ services:
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
-#      - ~/.cache/composer:/home/docker/.cache/composer
-    environment:
-      XDEBUG_ENABLE: "false"
-#      PHP_IDE_CONFIG: "serverName="
-#      XDEBUG_REMOTE_HOST:
-#      COMPOSER_CACHE_DIR: '/home/docker/.cache/composer'
-      COMPOSER_HOME: '/var/www/html/var/composer_home'
+      - ~/.cache/composer:/home/docker/.cache/composer
+    env_file:
+      - .env
   mysql:
     image: percona:5.7
     env_file:
