@@ -4,8 +4,7 @@ services:
     image: nginx
     ports:
       - "80:80"
-    links:
-      - fpm
+    depends_on: [fpm]
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./nginx/templates:/etc/nginx/templates
@@ -13,10 +12,7 @@ services:
       - .env
   fpm:
     build: ./fpm
-    links:
-      - mysql
-      - redis
-      - elasticsearch
+    depends_on: [mysql, redis, elasticsearch]
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
