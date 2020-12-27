@@ -34,13 +34,11 @@ docker-compose.yml. Adjust values if you have different path.
 10. Enable `Start Listening for PHP Debug Connections`.
 
 ### To do
-1. Change links -> depends_on[]
-2. Update README.md:
+1. Update README.md:
   - on which platform tested
-3. Enable SSL
-4. Move integration test configuration to override.yml
-5. Build PHP image and push it to Docker hub
-6. Rework file permissions
+2. Move integration test configuration to override.yml
+3. Build PHP image and push it to Docker hub
+4. Rework file permissions
 
 ## Built With
 
