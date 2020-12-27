@@ -7,7 +7,7 @@ services:
     depends_on: [fpm]
     volumes:
       - ./www:/var/www/html/m2:delegated
-      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/templates:/etc/nginx/templates:delegated
     env_file:
       - .env
   fpm:
@@ -16,7 +16,7 @@ services:
     volumes:
       - ./www:/var/www/html/m2:delegated
       - ./.env:/var/www/html/.env
-#      - ~/.cache/composer:/home/docker/.cache/composer
+#      - ~/.cache/composer:/home/docker/.cache/composer:delegated
     env_file:
       - .env
   mysql:
