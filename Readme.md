@@ -1,18 +1,24 @@
-Docker configuration for Magento 2 Open Source with Sample Data running on PHP-FPM 7.3, MySQL 5.7, Elasticsearch 7, Nginx, Composer.
+Docker configuration for Magento 2 Open Source with Sample Data running on PHP-FPM 7.3, MySQL 5.7, Elasticsearch 7,
+Nginx, Composer.
 
 ### Prerequisites
 
 Install Docker CE and Docker Compose.
 
-### Installing
+### Installation
 
 Steps to install Magento 2 with sample data:
 
 1. Copy *.env.sample* into *.env*: `cp .env.sample .env` .
-2. Edit *.env* with setting of public and private keys from your account on Magento Marketplace.
-3. Run `./setup.sh`
-4. Add a line to your hosts file `127.0.0.1 <your.host>`
-5. Open `<your.host>` in browser and have fun ;)
+2. (Optionally) In order to use Composer's cache (which will make the process dramatically faster for future
+installation), uncomment `COMPOSER_CACHE_DIR` in .env and `- ~/.cache/composer:/home/docker/.cache/composer` in
+docker-compose.yml. Adjust values if you have different path.
+3. (Optionally) In order to use stored Composer's configuration, uncomment
+`COMPOSER_HOME=/var/www/html/var/composer_home` in .env.
+4. Edit *.env* with setting of public and private keys from your account on Magento Marketplace.
+5. Run `./setup.sh`
+6. Add a line to your hosts file `127.0.0.1 <your.host>`
+7. Open `<your.host>` in browser and have fun ;)
 
 ### Debugging
 
@@ -30,7 +36,6 @@ Steps to install Magento 2 with sample data:
 ### To do
 1. Change links -> depends_on[]
 2. Update README.md:
-  - how to use Composer cache
   - on which platform tested
 3. Enable SSL
 4. Move integration test configuration to override.yml
@@ -45,7 +50,8 @@ Steps to install Magento 2 with sample data:
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/vasylmalanka/m2-sample-docker/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository]
+(https://github.com/vasylmalanka/m2-sample-docker/tags). 
 
 ## Authors
 
@@ -53,4 +59,5 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/nishanths/license/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE]
+(https://github.com/nishanths/license/blob/master/LICENSE) file for details.
